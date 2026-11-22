@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LifeManagementApp.ViewModels"
+        x:Class="LifeManagementApp.Views.MainWindow"
+        x:DataType="vm:HomeViewModel"
+        Title="Home — LifeManagementApp" Width="560" Height="430">
+
+    <StackPanel Margin="16" Spacing="12">
+        <TextBlock Text="Life Management App" FontSize="26" FontWeight="Bold"/>
+        <TextBlock Text="{Binding WeatherInfo}" FontSize="16"/>
+
+        <!-- 风筝提醒：风速 > 5 m/s 才现身 -->
+        <Border IsVisible="{Binding IsKiteTime}" Background="Gold" CornerRadius="6" Padding="10">
+            <TextBlock Text="🪁 Wind is strong — go kiting!" FontWeight="Bold"/>
+        </Border>
+
+        <TextBlock Text="Top 3 — open items, by priority then due date" FontWeight="Bold"/>
+        <ListBox x:Name="TopList" ItemsSource="{Binding TopTodos}" MinHeight="90"/>
+
+        <Button Content="Manage todos →" Click="OpenTodos_Click"/>
+    </StackPanel>
+</Window>
