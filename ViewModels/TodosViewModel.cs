@@ -4,7 +4,7 @@ using LifeManagementApp.Models;
 
 namespace LifeManagementApp.ViewModels;
 
-// 待办管理页的脑：持有全部条目，列表变化自动刷新界面
+// The brain of the todos page: holds all items; list changes refresh the UI automatically
 public partial class TodosViewModel : ObservableObject
 {
     [ObservableProperty] private string _error = "";

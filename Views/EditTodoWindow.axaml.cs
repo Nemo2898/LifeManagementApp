@@ -6,7 +6,7 @@ using LifeManagementApp.ViewModels;
 
 namespace LifeManagementApp.Views;
 
-// 编辑/新增窗：构造时收 (repo, editing) —— editing 为 null 就是新增
+// Edit/new window: constructed with (repo, editing) - editing == null means create
 public partial class EditTodoWindow : Window
 {
     private readonly ITodoRepository _repo;
@@ -25,14 +25,14 @@ public partial class EditTodoWindow : Window
     {
         try
         {
-            var item = _vm.BuildItem();          // 空标题在这里被拒
+            var item = _vm.BuildItem();          // empty title is rejected here
             if (_vm.Original is null) await _repo.AddAsync(item);
             else await _repo.UpdateAsync(item);
             Close();
         }
         catch (ArgumentException ex)
         {
-            _vm.Error = ex.Message;              // 红字提示，不关窗
+            _vm.Error = ex.Message;              // red hint, keep the window open
         }
     }
 }

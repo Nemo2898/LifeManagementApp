@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LifeManagementApp.Services;
 
-// 契约的履约人：把增删改查翻译成 EF 的数据库操作
+// The contract implementer: translates CRUD into EF database operations
 public class TodoRepository : ITodoRepository
 {
     private readonly TodoDbContext _db = new();
 
     public TodoRepository()
     {
-        // 没有库就建库（Code-First 的极简版；生产应使用迁移）
+        // Create the database if missing (the minimalist Code-First; production would use migrations)
         _db.Database.EnsureCreated();
     }
 
@@ -26,7 +26,7 @@ public class TodoRepository : ITodoRepository
 
     public async Task UpdateAsync(TodoItem item)
     {
-        _db.Todos.Update(item);       // 已跟踪实体的状态同步
+        _db.Todos.Update(item);       // sync the state of the tracked entity
         await _db.SaveChangesAsync();
     }
 }

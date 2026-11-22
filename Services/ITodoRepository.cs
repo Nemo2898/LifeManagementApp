@@ -2,7 +2,8 @@ using LifeManagementApp.Models;
 
 namespace LifeManagementApp.Services;
 
-// 契约：谁替我存待办，只认这张纸 —— 界面层不关心底层是 SQLite 还是内存
+// Contract: whoever stores todos for me must honor this sheet - the UI layer
+// does not care whether the storage is SQLite or an in-memory list.
 public interface ITodoRepository
 {
     Task<List<TodoItem>> GetAllAsync();

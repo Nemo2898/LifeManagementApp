@@ -5,7 +5,8 @@ using LifeManagementApp.ViewModels;
 
 namespace LifeManagementApp.Views;
 
-// 首页：从 DI 容器拿依赖（构造注入），Top3 与天气都在 VM 里
+// Home page: dependencies come from the DI container (constructor injection);
+// Top 3 and weather live in the ViewModel.
 public partial class MainWindow : Window
 {
     private readonly HomeViewModel _vm;
@@ -17,13 +18,13 @@ public partial class MainWindow : Window
         _repo = repo;
         _vm = new HomeViewModel(repo, weather);
         DataContext = _vm;
-        _ = _vm.RefreshAsync();          // 异步首刷，不堵 UI
+        _ = _vm.RefreshAsync();          // async first refresh, does not block the UI
     }
 
-    // 打开待办管理页；窗口关闭后回来刷新 Top3
+    // Open the todos page; refresh Top 3 when that window closes
     private async void OpenTodos_Click(object? sender, RoutedEventArgs e)
     {
-        var win = new TodosWindow(_repo);   // ← 传参：把 repo 递给下一页
+        var win = new TodosWindow(_repo);   // <- parameter passing: hand the repo to the next page
         await win.ShowDialog(this);
         await _vm.RefreshAsync();
     }

@@ -3,15 +3,15 @@ using LifeManagementApp.Models;
 
 namespace LifeManagementApp.ViewModels;
 
-// 编辑/新增页的脑：收一个 TodoItem（null = 新建），吐出编辑结果
+// The brain of the edit/new page: takes a TodoItem (null = create) and produces the result
 public partial class EditTodoViewModel : ObservableObject
 {
     [ObservableProperty] private string _title = "";
-    [ObservableProperty] private decimal _priority = 3;          // NumericUpDown 用 decimal 最稳
+    [ObservableProperty] private decimal _priority = 3;          // decimal keeps NumericUpDown happy
     [ObservableProperty] private DateTimeOffset? _dueDate = DateTimeOffset.Now;
     [ObservableProperty] private string _error = "";
 
-    // 编辑的对象（null = 新增）—— 这就是"传参"
+    // The item being edited (null = create) - this is the parameter passing
     public TodoItem? Original { get; }
 
     public EditTodoViewModel(TodoItem? editing)
@@ -27,7 +27,7 @@ public partial class EditTodoViewModel : ObservableObject
 
     public TodoItem BuildItem()
     {
-        // 空标题拒绝 —— 评分表 §1 的硬指标
+        // Reject empty titles - a hard requirement of rubric section 1
         if (string.IsNullOrWhiteSpace(Title))
             throw new ArgumentException("Title must not be empty.");
         return new TodoItem

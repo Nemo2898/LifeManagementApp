@@ -9,7 +9,7 @@
         <TextBlock Text="Life Management App" FontSize="26" FontWeight="Bold"/>
         <TextBlock Text="{Binding WeatherInfo}" FontSize="16"/>
 
-        <!-- 风筝提醒：风速 > 5 m/s 才现身 -->
+        <!-- Kite reminder: only visible when wind speed > 5 m/s -->
         <Border IsVisible="{Binding IsKiteTime}" Background="Gold" CornerRadius="6" Padding="10">
             <TextBlock Text="🪁 Wind is strong — go kiting!" FontWeight="Bold"/>
         </Border>

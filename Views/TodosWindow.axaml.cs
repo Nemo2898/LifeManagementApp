@@ -6,7 +6,7 @@ using LifeManagementApp.ViewModels;
 
 namespace LifeManagementApp.Views;
 
-// 待办管理页：列表 + 增/改/完成
+// Todos page: list + add / edit / mark-done
 public partial class TodosWindow : Window
 {
     private readonly ITodoRepository _repo;
@@ -23,19 +23,19 @@ public partial class TodosWindow : Window
     private async Task RefreshAsync()
         => _vm.Reload(await _repo.GetAllAsync());
 
-    // 挑中哪条就用哪条 —— 没选中就提示
+    // Whichever row is selected is used - hint if nothing is selected
     private TodoItem? Selected => ItemsList.SelectedItem as TodoItem;
 
     private async void Add_Click(object? sender, RoutedEventArgs e)
     {
-        await new EditTodoWindow(_repo, null).ShowDialog(this);   // null = 新增
+        await new EditTodoWindow(_repo, null).ShowDialog(this);   // null = create
         await RefreshAsync();
     }
 
     private async void Edit_Click(object? sender, RoutedEventArgs e)
     {
         if (Selected is null) { _vm.Error = "Select an item first."; return; }
-        await new EditTodoWindow(_repo, Selected).ShowDialog(this);  // ← 传参：把整条待办递过去
+        await new EditTodoWindow(_repo, Selected).ShowDialog(this);  // <- parameter passing: hand the whole todo over
         await RefreshAsync();
     }
 
